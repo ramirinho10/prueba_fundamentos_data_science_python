@@ -18,6 +18,22 @@ warnings.filterwarnings("ignore", category=DeprecationWarning) # con esto se evi
 
 import missingno as msngo
 
+def transform(df, var):
+    
+    #nan a una opcion random
+    df[var] = df[var].replace([np.nan], [df[var].sample(random_state = 10)])
+    
+    #Transformacion
+    df[var] = df[var].replace(["0","1","2","3","4","5"], [var+"0", var+"1", var+"2", var+"3", var+"4", var+"5"])
+    
+    #grafico
+    grafico_barra(df, var)
+	
+	
+	
+	
+	
+	
 #Funcion para realizar graficos de barra para variables discretas de mi df
 
 def grafico_barra(df, var):
@@ -25,8 +41,11 @@ def grafico_barra(df, var):
     plt.ylabel("Frecuencia");
     plt.xlabel("Categoria");
     plt.title(f"{var}");
-
-
+	
+	
+	
+	
+	
 #Funcion para realizar graficos histogramas para variables continuas de mi df
 
 def plot_hist(df, var, true_mean=False):
@@ -39,10 +58,26 @@ def plot_hist(df, var, true_mean=False):
         plt.axvline(df[var].mean(), color="red", label=f"Promedio de {var}")
     
     plt.legend()
-
-
+	
+	
+	
+	
+	
 def fetch_descriptives(df, var):
     print(f"La media de {var} es {df[var].mean()}")
     print(f"La mediana de {var} es {df[var].median()}")
     print(f"La moda de {var} es {stats.mode(df[var])[0]} y su frec es {stats.mode(df[var])[1]}")
     print(f"La desviacion estandar es {np.std(df[var])}")
+	
+	
+	
+def transform_2(df, var):
+    
+    #nan a una opcion random
+    df[var] = df[var].replace([np.nan], [df[var].sample(random_state = 10)])
+    
+    #Transformacion
+    df[var] = df[var].replace(["0","1","2","3","4","5"], [0,1,2,3,4,5])
+    
+    #grafico
+    grafico_barra(df, var)
